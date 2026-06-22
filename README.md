@@ -76,5 +76,4 @@ Ung dung tu tao database `taskmanager` va cac bang can thiet neu user MySQL/Mari
 
 ## Ghi chu
 
-- Thu muc `target/` khong duoc dua len Git.
 - Sao luu/khoi phuc du lieu MySQL/MariaDB nen thuc hien bang HeidiSQL, `mysqldump`, hoac cong cu quan tri database tuong duong.
