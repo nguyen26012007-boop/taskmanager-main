@@ -1,6 +1,6 @@
 # Personal Task Manager
 
-Ung dung quan ly cong viec ca nhan viet bang JavaFX va MariaDB/MySQL.
+Ung dung quan ly cong viec ca nhan viet bang JavaFX, TCP Socket va MariaDB/MySQL.
 
 ## Cong nghe
 
@@ -8,6 +8,7 @@ Ung dung quan ly cong viec ca nhan viet bang JavaFX va MariaDB/MySQL.
 - JavaFX 21
 - Maven
 - MariaDB/MySQL
+- TCP Socket client-server
 - Apache POI
 - Apache PDFBox
 
@@ -30,7 +31,13 @@ Yeu cau:
 - Maven 3.8 tro len
 - MariaDB/MySQL server dang chay
 
-Mac dinh ung dung ket noi toi:
+Ung dung chay theo mo hinh client-server:
+
+- Server Java chay tren cong `9999`
+- Client JavaFX ket noi toi server qua `localhost:9999`
+- Server ket noi toi MariaDB/MySQL de xu ly du lieu
+
+Mac dinh server ket noi database toi:
 
 ```text
 host: 127.0.0.1
@@ -40,10 +47,10 @@ user: root
 password:
 ```
 
-Co the doi cau hinh bang system properties:
+Co the doi cau hinh database bang system properties khi chay server:
 
 ```bash
-mvn javafx:run -Dtaskmanager.db.host=127.0.0.1 -Dtaskmanager.db.port=3306 -Dtaskmanager.db.name=taskmanager -Dtaskmanager.db.user=root -Dtaskmanager.db.password=your_password
+mvn exec:java -Dexec.mainClass="com.taskmanager.server.ServerMain" -Dtaskmanager.db.host=127.0.0.1 -Dtaskmanager.db.port=3306 -Dtaskmanager.db.name=taskmanager -Dtaskmanager.db.user=root -Dtaskmanager.db.password=your_password
 ```
 
 Hoac bang bien moi truong:
@@ -56,11 +63,35 @@ TASKMANAGER_DB_USER
 TASKMANAGER_DB_PASSWORD
 ```
 
-Chay ung dung:
+Chay ung dung tren Windows:
+
+1. Mo terminal thu nhat va chay server:
+
+```bash
+run-server.bat
+```
+
+2. Mo terminal thu hai va chay client:
+
+```bash
+run-client.bat
+```
+
+Hoac chay bang Maven:
+
+1. Chay server:
+
+```bash
+mvn exec:java -Dexec.mainClass="com.taskmanager.server.ServerMain"
+```
+
+2. Chay client:
 
 ```bash
 mvn javafx:run
 ```
+
+Luu y: can chay server truoc client. Neu server chua chay, client se bao loi khong ket noi duoc.
 
 Build file jar:
 
