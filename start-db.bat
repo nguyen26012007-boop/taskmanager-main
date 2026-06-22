@@ -1,10 +1,10 @@
 @echo off
 setlocal EnableDelayedExpansion
 
-set MYSQL_HOME=C:\laragon\bin\mysql\mysql-8.4.3-winx64
-set MYSQLD=%MYSQL_HOME%\bin\mysqld.exe
-set MYSQLADMIN=%MYSQL_HOME%\bin\mysqladmin.exe
-set MYSQL_INI=%MYSQL_HOME%\my.ini
+set MYSQL_HOME=C:\Program Files\MariaDB 12.3
+set MYSQLD=%MYSQL_HOME%\bin\mariadbd.exe
+set MYSQLADMIN=%MYSQL_HOME%\bin\mariadb-admin.exe
+set MYSQL_INI=%MYSQL_HOME%\data\my.ini
 
 if exist "%MYSQLADMIN%" (
     "%MYSQLADMIN%" -uroot ping >nul 2>nul
@@ -27,7 +27,7 @@ if not exist "%MYSQLD%" (
     exit /b 1
 )
 
-echo [DB] Starting MySQL without opening Laragon...
+echo [DB] Starting MariaDB without opening Laragon...
 start "TaskManager MySQL" /min "%MYSQLD%" --defaults-file="%MYSQL_INI%"
 
 for /l %%i in (1,1,20) do (

@@ -1,8 +1,8 @@
 @echo off
 setlocal
 
-set MYSQL_HOME=C:\laragon\bin\mysql\mysql-8.4.3-winx64
-set MYSQLADMIN=%MYSQL_HOME%\bin\mysqladmin.exe
+set MYSQL_HOME=C:\Program Files\MariaDB 12.3
+set MYSQLADMIN=%MYSQL_HOME%\bin\mariadb-admin.exe
 
 if not exist "%MYSQLADMIN%" (
     echo [DB] Cannot find mysqladmin.exe at:
@@ -21,4 +21,3 @@ if %errorlevel%==0 (
     pause
     exit /b 1
 )
-
