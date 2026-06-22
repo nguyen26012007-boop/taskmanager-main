@@ -5,6 +5,7 @@ set MYSQL_HOME=C:\Program Files\MariaDB 12.3
 set MYSQLD=%MYSQL_HOME%\bin\mariadbd.exe
 set MYSQLADMIN=%MYSQL_HOME%\bin\mariadb-admin.exe
 set MYSQL_INI=%MYSQL_HOME%\data\my.ini
+set MYSQL_SERVICE=TaskManagerMariaDB
 
 if exist "%MYSQLADMIN%" (
     "%MYSQLADMIN%" -uroot ping >nul 2>nul
@@ -12,6 +13,13 @@ if exist "%MYSQLADMIN%" (
         echo [DB] MySQL/MariaDB is already running on port 3306.
         exit /b 0
     )
+)
+
+sc query "%MYSQL_SERVICE%" >nul 2>nul
+if %errorlevel%==0 (
+    echo [DB] Starting MariaDB service...
+    net start "%MYSQL_SERVICE%" >nul 2>nul
+    goto wait_for_db
 )
 
 netstat -ano | findstr ":3306 .*LISTENING" >nul
@@ -30,6 +38,7 @@ if not exist "%MYSQLD%" (
 echo [DB] Starting MariaDB without opening Laragon...
 start "TaskManager MySQL" /min "%MYSQLD%" --defaults-file="%MYSQL_INI%"
 
+:wait_for_db
 for /l %%i in (1,1,20) do (
     timeout /t 1 /nobreak >nul
     if exist "%MYSQLADMIN%" (

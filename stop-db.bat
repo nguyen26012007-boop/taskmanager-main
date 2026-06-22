@@ -3,6 +3,14 @@ setlocal
 
 set MYSQL_HOME=C:\Program Files\MariaDB 12.3
 set MYSQLADMIN=%MYSQL_HOME%\bin\mariadb-admin.exe
+set MYSQL_SERVICE=TaskManagerMariaDB
+
+sc query "%MYSQL_SERVICE%" >nul 2>nul
+if %errorlevel%==0 (
+    echo [DB] Stopping MariaDB service...
+    net stop "%MYSQL_SERVICE%"
+    exit /b %errorlevel%
+)
 
 if not exist "%MYSQLADMIN%" (
     echo [DB] Cannot find mysqladmin.exe at:

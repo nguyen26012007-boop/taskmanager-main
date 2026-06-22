@@ -3,5 +3,6 @@ target/
 .vscode/
 *.iml
 *.log
+*.sql
 .DS_Store
 Thumbs.db
